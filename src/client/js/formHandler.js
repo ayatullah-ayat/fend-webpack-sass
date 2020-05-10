@@ -11,6 +11,19 @@ function handleSubmit(event) {
     .then(function(res) {
         document.getElementById('results').innerHTML = res.message
     })
+    fetchAnotherNewApi()
+}
+async function fetchAnotherNewApi() {
+    const users = await fetch('https://api.github.com/users')
+    const json = await users.json()
+    let newContent = ''
+    json.forEach((eachData) => {
+        console.log(eachData)
+        newContent += `<p>${eachData.login}</p>
+                        <img style= {width: 250px} src=${eachData.avatar_url} />`
+    })
+    document.getElementById('new-results').innerHTML = newContent
+    
 }
 
 export { handleSubmit }
